@@ -1,0 +1,209 @@
+{
+  "DataSetConfigurations": [
+      {
+          "TextEng": "Iedzīvotāju skaits gada sākumā",
+          "TextLat": "Iedzīvotāju skaits gada sākumā",
+          "DataSetType": 0,
+          "IsQuarterly": false,
+          "Uri": "POP/IR/IRS/IRS030",
+          "QuerySections": [
+              "Teritoriālā vienība",
+              "Gads",
+              "Rādītāji"
+          ],
+          "QueryValues": [
+              [
+                  "AREA"
+              ],
+              [
+                  "TIME"
+              ],
+              [
+                  "POP_SY"
+              ]
+          ],
+          "Years": [
+              "2009",
+              "2010",
+              "2011",
+              "2012",
+              "2013",
+              "2014",
+              "2015",
+              "2016",
+              "2017",
+              "2018",
+              "2019",
+              "2020"
+          ],
+          "Quarters": [],
+          "FirstYearQuarters": null,
+          "LastYearQuarters": null,
+          "DataSetTypeName": "Iedzīvotāju skaits gada sākumā"
+      },
+      {
+          "TextEng": "Gada vidējais iedzīvotāju skaits",
+          "TextLat": "Gada vidējais iedzīvotāju skaits",
+          "DataSetType": 0,
+          "IsQuarterly": false,
+          "Uri": "POP/IR/IRS/IRS030",
+          "QuerySections": [
+              "Teritoriālā vienība",
+              "Gads",
+              "Rādītāji"
+          ],
+          "QueryValues": [
+              [
+                  "COUNTIES"
+              ],
+              [
+                  "YEAR"
+              ],
+              [
+                  "POP"
+              ]
+          ],
+          "Years": [
+              "2009",
+              "2010",
+              "2011",
+              "2012",
+              "2013",
+              "2014",
+              "2015",
+              "2016",
+              "2017",
+              "2018",
+              "2019",
+              "2020"
+          ],
+          "Quarters": [],
+          "FirstYearQuarters": null,
+          "LastYearQuarters": null,
+          "DataSetTypeName": "Gada vidējais iedzīvotāju skaits"
+      },
+      {
+          "TextEng": "Dabiskais pieaugums",
+          "TextLat": "Dabiskais pieaugums",
+          "DataSetType": 0,
+          "IsQuarterly": false,
+          "Uri": "POP/IR/IRS/IRS030",
+          "QuerySections": [
+              "Teritoriālā vienība",
+              "Gads",
+              "Rādītāji"
+          ],
+          "QueryValues": [
+              [
+                  "COUNTIES"
+              ],
+              [
+                  "YEAR"
+              ],
+              [
+                  "NATGROW"
+              ]
+          ],
+          "Years": [
+              "2009",
+              "2010",
+              "2011",
+              "2012",
+              "2013",
+              "2014",
+              "2015",
+              "2016",
+              "2017",
+              "2018",
+              "2019",
+              "2020"
+          ],
+          "Quarters": [],
+          "FirstYearQuarters": null,
+          "LastYearQuarters": null,
+          "DataSetTypeName": "Dabiskais pieaugums"
+      },
+      {
+          "TextEng": "Migrācijas saldo",
+          "TextLat": "Migrācijas saldo",
+          "DataSetType": 0,
+          "IsQuarterly": false,
+          "Uri": "POP/IR/IRS/IRS030",
+          "QuerySections": [
+              "Teritoriālā vienība",
+              "Gads",
+              "Rādītāji"
+          ],
+          "QueryValues": [
+              [
+                  "COUNTIES"
+              ],
+              [
+                  "YEAR"
+              ],
+              [
+                  "MIGR_NET"
+              ]
+          ],
+          "Years": [
+              "2009",
+              "2010",
+              "2011",
+              "2012",
+              "2013",
+              "2014",
+              "2015",
+              "2016",
+              "2017",
+              "2018",
+              "2019",
+              "2020"
+          ],
+          "Quarters": [],
+          "FirstYearQuarters": null,
+          "LastYearQuarters": null,
+          "DataSetTypeName": "Migrācijas saldo"
+      },
+      {
+          "TextEng": "Iedzīvotāju skaita izmaiņas",
+          "TextLat": "Iedzīvotāju skaita izmaiņas",
+          "DataSetType": 0,
+          "IsQuarterly": false,
+          "Uri": "POP/IR/IRS/IRS030",
+          "QuerySections": [
+              "Teritoriālā vienība",
+              "Gads",
+              "Rādītāji"
+          ],
+          "QueryValues": [
+              [
+                  "COUNTIES"
+              ],
+              [
+                  "YEAR"
+              ],
+              [
+                  "GROW"
+              ]
+          ],
+          "Years": [
+              "2009",
+              "2010",
+              "2011",
+              "2012",
+              "2013",
+              "2014",
+              "2015",
+              "2016",
+              "2017",
+              "2018",
+              "2019",
+              "2020"
+          ],
+          "Quarters": [],
+          "FirstYearQuarters": null,
+          "LastYearQuarters": null,
+          "DataSetTypeName": "Iedzīvotāju skaita izmaiņas"
+      }
+  ]
+}

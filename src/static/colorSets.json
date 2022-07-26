@@ -1,0 +1,312 @@
+[
+    {
+        "colors": [
+            {
+                "value": "#7f0000",
+                "isActive": true,
+                "min": null,
+                "max": null
+            },
+            {
+                "value": "#b30000",
+                "isActive": false,
+                "min": null,
+                "max": null
+            },
+            {
+                "value": "#d7301f",
+                "isActive": false,
+                "min": null,
+                "max": null
+            },
+            {
+                "value": "#ef6548",
+                "isActive": false,
+                "min": null,
+                "max": null
+            },
+            {
+                "value": "#fc8d59",
+                "isActive": false,
+                "min": null,
+                "max": null
+            },
+            {
+                "value": "#fdbb84",
+                "isActive": false,
+                "min": null,
+                "max": null
+            },
+            {
+                "value": "#fdd49e",
+                "isActive": false,
+                "min": null,
+                "max": null
+            },
+            {
+                "value": "#fee8c8",
+                "isActive": false,
+                "min": null,
+                "max": null
+            },
+            {
+                "value": "#fff7ec",
+                "isActive": true,
+                "min": null,
+                "max": null
+            }
+        ],
+        "selected": true,
+        "name": "RedYellow",
+        "textEng": "Red - yellow",
+        "textLat": "Sarkans - dzeltens"
+    },
+    {
+        "colors": [
+            {
+                "value": "#00441b",
+                "isActive": true,
+                "min": null,
+                "max": null
+            },
+            {
+                "value": "#006d2c",
+                "isActive": false,
+                "min": null,
+                "max": null
+            },
+            {
+                "value": "#238b45",
+                "isActive": false,
+                "min": null,
+                "max": null
+            },
+            {
+                "value": "#41ae76",
+                "isActive": false,
+                "min": null,
+                "max": null
+            },
+            {
+                "value": "#66c2a4",
+                "isActive": false,
+                "min": null,
+                "max": null
+            },
+            {
+                "value": "#99d8c9",
+                "isActive": false,
+                "min": null,
+                "max": null
+            },
+            {
+                "value": "#ccece6",
+                "isActive": false,
+                "min": null,
+                "max": null
+            },
+            {
+                "value": "#e5f5f9",
+                "isActive": false,
+                "min": null,
+                "max": null
+            },
+            {
+                "value": "#f7fcfd",
+                "isActive": true,
+                "min": null,
+                "max": null
+            }
+        ],
+        "selected": false,
+        "name": "GreenWhite",
+        "textEng": "Green - white",
+        "textLat": "Zaļš - balts"
+    },
+    {
+        "colors": [
+            {
+                "value": "#000000",
+                "isActive": true,
+                "min": null,
+                "max": null
+            },
+            {
+                "value": "#252525",
+                "isActive": false,
+                "min": null,
+                "max": null
+            },
+            {
+                "value": "#525252",
+                "isActive": false,
+                "min": null,
+                "max": null
+            },
+            {
+                "value": "#737373",
+                "isActive": false,
+                "min": null,
+                "max": null
+            },
+            {
+                "value": "#969696",
+                "isActive": false,
+                "min": null,
+                "max": null
+            },
+            {
+                "value": "#bdbdbd",
+                "isActive": false,
+                "min": null,
+                "max": null
+            },
+            {
+                "value": "#d9d9d9",
+                "isActive": false,
+                "min": null,
+                "max": null
+            },
+            {
+                "value": "#f0f0f0",
+                "isActive": false,
+                "min": null,
+                "max": null
+            },
+            {
+                "value": "#ffffff",
+                "isActive": true,
+                "min": null,
+                "max": null
+            }
+        ],
+        "selected": false,
+        "name": "BlackWhite",
+        "textEng": "Black - white",
+        "textLat": "Melns - balts"
+    },
+    {
+        "colors": [
+            {
+                "value": "#662506",
+                "isActive": true,
+                "min": null,
+                "max": null
+            },
+            {
+                "value": "#993404",
+                "isActive": false,
+                "min": null,
+                "max": null
+            },
+            {
+                "value": "#cc4c02",
+                "isActive": false,
+                "min": null,
+                "max": null
+            },
+            {
+                "value": "#ec7014",
+                "isActive": false,
+                "min": null,
+                "max": null
+            },
+            {
+                "value": "#fe9929",
+                "isActive": false,
+                "min": null,
+                "max": null
+            },
+            {
+                "value": "#fec44f",
+                "isActive": false,
+                "min": null,
+                "max": null
+            },
+            {
+                "value": "#fee391",
+                "isActive": false,
+                "min": null,
+                "max": null
+            },
+            {
+                "value": "#fff7bc",
+                "isActive": false,
+                "min": null,
+                "max": null
+            },
+            {
+                "value": "#ffffe5",
+                "isActive": true,
+                "min": null,
+                "max": null
+            }
+        ],
+        "selected": false,
+        "name": "BrownYellow",
+        "textEng": "Brown - yellow",
+        "textLat": "Brūns - dzeltens"
+    },
+    {
+        "colors": [
+            {
+                "value": "#1a9850",
+                "isActive": true,
+                "min": null,
+                "max": null
+            },
+            {
+                "value": "#66bd63",
+                "isActive": false,
+                "min": null,
+                "max": null
+            },
+            {
+                "value": "#a6d96a",
+                "isActive": false,
+                "min": null,
+                "max": null
+            },
+            {
+                "value": "#d9ef8b",
+                "isActive": false,
+                "min": null,
+                "max": null
+            },
+            {
+                "value": "#ffffbf",
+                "isActive": false,
+                "min": null,
+                "max": null
+            },
+            {
+                "value": "#fee08b",
+                "isActive": false,
+                "min": null,
+                "max": null
+            },
+            {
+                "value": "#fdae61",
+                "isActive": false,
+                "min": null,
+                "max": null
+            },
+            {
+                "value": "#f46d43",
+                "isActive": false,
+                "min": null,
+                "max": null
+            },
+            {
+                "value": "#d73027",
+                "isActive": true,
+                "min": null,
+                "max": null
+            }
+        ],
+        "selected": false,
+        "name": "GreenRed",
+        "textEng": "Green - red",
+        "textLat": "Zaļš - sarkans"
+    }
+]

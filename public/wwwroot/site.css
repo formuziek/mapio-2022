@@ -1,0 +1,165 @@
+* {
+	padding: 0px;
+	margin: 0px;
+}
+
+html {
+	height: 100%;
+	width: 100%;
+}
+
+body {
+	height: 100%;
+	width: 100%;
+    background-color: #343434;
+	font-family: 'Roboto', sans-serif;
+	text-align: center;
+}
+
+.app {
+	height: 100%;
+	width: 100%;
+}
+
+.error-panel {
+	color: red;
+}
+
+.loading-indicator {
+	position: fixed;
+	padding-left: 48vw;
+	padding-top: 40vh;
+}
+
+#language-selection {
+	position: fixed;
+	top: 1%;
+	right: 1%;
+}
+
+#language-selection div {
+	font-size: 32px;
+}
+
+#map {
+	position: fixed;
+	top: 5%;
+	width: 100%;
+	z-index: -1;
+}
+
+#map svg {
+	width: 75%;
+	height: auto;
+}
+
+#version {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	color: white;
+}
+
+#version > a {
+	color: green;
+}
+
+#data-select {
+	width: 25%;
+	padding-top: 1%;
+	padding-left: 1%;
+	display: flex;
+	flex-direction: column;
+}
+
+.select-menu {
+	margin-bottom: 8px;
+	box-shadow: 0 2px 5px 1px #111;
+}
+
+#color-sets {
+	margin-top: 8px;
+	width: 150px;
+	height: 30px;
+}
+
+#map-options {
+	width: 25%;
+	padding-left: 1%;
+	display: flex;
+	flex-direction: column;
+}
+
+#map-options .color-select {
+	margin-bottom: 8px;
+	box-shadow: 0 -1px 5px 2px #111;
+}
+
+#color-options {
+	padding-left: 1%;
+	display: flex;
+	flex-direction: column;
+}
+
+.color-entry {
+	display: flex;
+	align-items: center;
+}
+
+.color-tile {
+	width: 30px;
+	height: 30px;
+	cursor: pointer;
+	border-radius: 5px;
+	box-shadow: 0 1px 5px 2px #111;
+}
+
+.color-range {
+	padding-left: 8px;
+	color: white;
+	font-size: 16px;
+}
+
+#colorKey {
+	width: 100%;
+	height: 100%;
+}
+
+@media (max-width: 1180px) {
+	#data-select {
+		height: 99%;
+		width: 98%;
+		padding-right: 1%;
+	}
+
+	#map-options {
+		width: 98%;
+		padding-right: 1%;
+	}
+
+	#map {
+		top: 25%;
+	}
+
+	#map svg {
+		width: 95%;
+		height: auto;
+	}
+
+	#language-selection {
+		bottom: 1%;
+	}
+}
+
+@media (max-width: 1080px) {
+	#map {
+		top: 30%;
+	}
+}
+
+@media (max-width: 980px) {
+	#color-options {
+		position: fixed;
+		bottom: 1%;
+	}
+}
