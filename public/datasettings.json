@@ -1,6 +1,37 @@
 {
   "DataSetConfigurations": [
-      {
+    {
+        "TextEng": "Iedzīvotāju skaits gada sākumā",
+        "TextLat": "Iedzīvotāju skaits gada sākumā",
+        "DataSetType": 0,
+        "IsQuarterly": false,
+        "Uri": "POP/IR/IRS/IRS031",
+        "QuerySections": [
+            "Teritoriālā vienība",
+            "Gads",
+            "Rādītāji"
+        ],
+        "QueryValues": [
+            [
+                "AREA"
+            ],
+            [
+                "TIME"
+            ],
+            [
+                "POP_SY"
+            ]
+        ],
+        "Years": [
+            "2021",
+            "2022"
+        ],
+        "Quarters": [],
+        "FirstYearQuarters": null,
+        "LastYearQuarters": null,
+        "DataSetTypeName": "Iedzīvotāju skaits gada sākumā"
+    },
+    {
           "TextEng": "Iedzīvotāju skaits gada sākumā",
           "TextLat": "Iedzīvotāju skaits gada sākumā",
           "DataSetType": 0,

@@ -1,13 +1,22 @@
 <template>
     <div id="data-select">
         <div class="select-menu">
+            <multiselect
+                v-model="mode"
+                :options="modes"
+                :allow-empty="false"
+                :show-labels="false"
+                :placeholder="$t('lblSelectMode')"
+                :label="getLabelSource()" />
+        </div>
+        <div class="select-menu">
             <multiselect 
                 v-model="filter.dataType" 
                 :options="dataTypes"
                 :allow-empty="false"
                 :show-labels="false"
                 :placeholder="$t('lblSelectDataType')"
-                :label="getLabelSource()"/>
+                :label="getLabelSource()" />
         </div>
         <div class="select-menu">
             <multiselect
@@ -15,7 +24,7 @@
                 :allow-empty="false"
                 :show-labels="false"
                 :placeholder="$t('lblSelectYear')"
-                :options="years"/>
+                :options="years" />
         </div>
         <div 
             v-show="filter.dataType && filter.dataType.IsQuarterly"
@@ -25,7 +34,7 @@
                 :allow-empty="false"
                 :show-labels="false"
                 :placeholder="$t('lblSelectQuarter')"
-                :options="quarters"/>
+                :options="quarters" />
         </div>
     </div>
 </template>
@@ -48,14 +57,17 @@ export default {
 
     data() {
         return {
+            modes: [ { code: "AFTER_2021_ATR", TextLat: "Pēc 2021.07 reformas" }, { code: "BEFORE_2021_ATR", TextLat: "Līdz 2021.07 reformai" } ],
             dataTypes: [],
             years: [],
             quarters: [],
             filter: {
+                mode: null,
                 dataType: null,
                 year: null,
                 quarter: null,
             },
+            mode: {},
         }
     },
 
@@ -65,6 +77,18 @@ export default {
             handler() {
                 this.datasetChanged(this.filter.dataType);
                 this.loadData();
+            }
+        },
+        mode: {
+            handler() {
+                let basemapVersion = "";
+                if (this.mode.code === "BEFORE_2021_ATR") {
+                    basemapVersion = "basemap";
+                } else {
+                    basemapVersion = "basemap-2021";
+                }
+                
+                this.$emit("loadBasemap", basemapVersion);
             }
         }
     },
@@ -108,7 +132,7 @@ export default {
                 return;
             }
 
-            const dataQuery = dataLogic.buildQuery(this.filter.dataType, this.filter.year, this.filter.quarter);
+            const dataQuery = dataLogic.buildQuery(this.mode, this.filter.dataType, this.filter.year, this.filter.quarter);
             const uri = `https://data.stat.gov.lv:443/api/v1/lv/OSP_PUB/${this.filter.dataType.Uri}`;
             let resultList = [];
             axios
@@ -151,6 +175,7 @@ export default {
             .catch(error => {
                 this.setError(error);
             });
+        this.mode = this.modes[0];
     },
 
     computed: 

@@ -18,7 +18,7 @@
                     <flag :squared="false" iso="lv" />
                 </div>
             </div> -->
-            <Filters />
+            <Filters @loadBasemap="loadBasemap"/>
             <Stage />
             <div id="map">
                 <span v-html="svg"></span>
@@ -63,7 +63,21 @@ export default {
         ]),
         ...mapGetters([
             'getBaseUri',
-        ])
+        ]),
+
+        loadBasemap(version) {
+            const uri = `${document.URL}${version}.svg`;
+            axios
+                .get(uri)
+                .then(response => {
+                    this.svg = response.data;
+                    this.initialLoadComplete = true;
+                    this.setLoading(false);
+                })
+                .catch(error => {
+                    this.setError(error);
+                });
+        }
     },
 
     watch: {
@@ -75,17 +89,7 @@ export default {
     },
 
     mounted() {
-        const uri = `${document.URL}basemap.svg`;
-        axios
-            .get(uri)
-            .then(response => {
-                this.svg = response.data;
-                this.initialLoadComplete = true;
-                this.setLoading(false);
-            })
-            .catch(error => {
-                this.setError(error);
-            });
+        this.loadBasemap("basemap-2021");
     },
 
     computed: {
