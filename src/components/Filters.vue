@@ -2,8 +2,8 @@
     <div id="data-select">
         <div class="select-menu">
             <multiselect
-                v-model="mode"
-                :options="modes"
+                v-model="version"
+                :options="versions"
                 :allow-empty="false"
                 :show-labels="false"
                 :placeholder="$t('lblSelectMode')"
@@ -41,7 +41,8 @@
 
 <script>
 import axios from 'axios';
-import dataLogic from './dataLogic';
+import DataLogic from './dataLogic';
+import { Version } from "../static/versions";
 import multiselect from 'vue-multiselect';
 import {
     mapState,
@@ -57,17 +58,17 @@ export default {
 
     data() {
         return {
-            modes: [ { code: "AFTER_2021_ATR", TextLat: "Pēc 2021.07 reformas" }, { code: "BEFORE_2021_ATR", TextLat: "Līdz 2021.07 reformai" } ],
+            allDataTypes: [],
+            versions: [ { code: Version.AFTER_2021_ATR, TextLat: "Pēc 2021.07 reformas" }, { code: Version.BEFORE_2021_ATR, TextLat: "Līdz 2021.07 reformai" } ],
             dataTypes: [],
             years: [],
             quarters: [],
             filter: {
-                mode: null,
                 dataType: null,
                 year: null,
                 quarter: null,
             },
-            mode: {},
+            version: {},
         }
     },
 
@@ -79,15 +80,18 @@ export default {
                 this.loadData();
             }
         },
-        mode: {
+        version: {
             handler() {
                 let basemapVersion = "";
-                if (this.mode.code === "BEFORE_2021_ATR") {
+                if (this.version.code === Version.BEFORE_2021_ATR) {
                     basemapVersion = "basemap";
                 } else {
                     basemapVersion = "basemap-2021";
                 }
-                
+
+                this.dataTypes = this.allDataTypes.filter(t => t.Version === this.version.code);
+                this.filter.dataType = null;
+
                 this.$emit("loadBasemap", basemapVersion);
             }
         }
@@ -105,6 +109,12 @@ export default {
 
         datasetChanged(dataset)
         {
+            if (!dataset) {
+                this.filter.year = null;
+                this.filter.quarter = null;
+                return;
+            }
+
             this.years = dataset.Years ? dataset.Years : [];
             this.quarters = dataset.Quarters ? dataset.Quarters : [];
             if (!this.years.includes(this.filter.year))
@@ -132,7 +142,7 @@ export default {
                 return;
             }
 
-            const dataQuery = dataLogic.buildQuery(this.mode, this.filter.dataType, this.filter.year, this.filter.quarter);
+            const dataQuery = DataLogic.buildQuery(this.version.code, this.filter.dataType, this.filter.year, this.filter.quarter);
             const uri = `https://data.stat.gov.lv:443/api/v1/lv/OSP_PUB/${this.filter.dataType.Uri}`;
             let resultList = [];
             axios
@@ -170,12 +180,12 @@ export default {
         axios
             .get(uri)
             .then(response => {
-                this.dataTypes = response.data.DataSetConfigurations;
+                this.allDataTypes = response.data.DataSetConfigurations;
+                this.version = this.versions[0];
             })
             .catch(error => {
                 this.setError(error);
             });
-        this.mode = this.modes[0];
     },
 
     computed: 
