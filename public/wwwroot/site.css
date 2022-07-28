@@ -55,13 +55,27 @@ body {
 
 #version {
 	position: absolute;
-	bottom: 0;
-	right: 0;
+	bottom: 5px;
+	right: 5px;
 	color: white;
 }
 
-#version > a {
-	color: green;
+#version > span:hover {
+	cursor: pointer;
+}
+
+#version-expanded {
+	position: absolute;
+	bottom: 5px;
+	right: 30px;
+	background-color: #555555;
+	width: 300px;
+	height: 40px;
+	border-radius: 5px;
+}
+
+#version-expanded > a {
+	color: white;
 }
 
 #data-select {

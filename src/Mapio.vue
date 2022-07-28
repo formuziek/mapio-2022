@@ -25,7 +25,11 @@
             </div>
         </div>
         <div id="version">
-            Datu avots - <a href="https://www.csb.gov.lv/">Centrālā statistikas pārvalde</a> Mapio v0.1.3
+            <span @click="toggleInfo" class="material-icons">info</span>
+            <div id="version-expanded" v-if="showInfo">
+                Datu avots - <a href="https://www.csb.gov.lv/">Centrālā statistikas pārvalde</a>
+                Mapio v0.1.3
+            </div>
         </div>
     </div>
 </template>
@@ -52,6 +56,7 @@ export default {
         return {
             svg: null,
             initialLoadComplete: false,
+            showInfo: false,
         }
     },
 
@@ -64,6 +69,10 @@ export default {
         ...mapGetters([
             'getBaseUri',
         ]),
+
+        toggleInfo() {
+            this.showInfo = !this.showInfo;
+        },
 
         loadBasemap(version) {
             const uri = `${document.URL}${version}.svg`;
