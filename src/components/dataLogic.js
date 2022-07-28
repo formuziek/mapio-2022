@@ -13,12 +13,12 @@ let DataLogic = {
             },
         };
 
-        dataset.QuerySections.forEach(section => {
+        for (let i = 0; i < dataset.QuerySections.length; i++) {
+            const section = dataset.QuerySections[i];
             const sectionValues = [];
             let sectionCode = "";
             switch (section) {
-                case "Teritoriālā vienība":
-                case "Administratīvā teritorija":
+                case "AREA":
                     if (version === Version.AFTER_2021_ATR) {
                         for (var key in AdministrativeCodes2021) {
                             sectionValues.push(key);
@@ -28,30 +28,23 @@ let DataLogic = {
                             sectionValues.push(key);
                         }
                     }
-                    sectionCode = "AREA";
                     break;
-                case "Gads":
+                case "TIME":
                     sectionValues.push(year);
-                    sectionCode = "TIME";
-                    break;
-                case "Gads/Ceturksnis":
-                    sectionValues.push(`${year}${quarter}`);
-                    sectionCode = "TIME";
                     break;
                 default:
-                    sectionValues.push(...dataset.QueryValues[dataset.QuerySections.indexOf(section)]);
-                    sectionCode = "INDICATOR";
+                    sectionValues.push(...dataset.QueryValues[i])
                     break;
             }
             const queryItem = {
-                Code: sectionCode,
+                Code: section,
                 Selection: {
                     Filter: 'item',
                     Values: sectionValues,
                 },
             };
             queryRoot.Query.push(queryItem);
-        });
+        }
 
         return queryRoot;
     },

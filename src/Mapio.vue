@@ -25,7 +25,7 @@
             </div>
         </div>
         <div id="version">
-            Datu avots - <a href="https://www.csb.gov.lv/">Centrālā statistikas pārvalde</a> Mapio v0.1.2
+            Datu avots - <a href="https://www.csb.gov.lv/">Centrālā statistikas pārvalde</a> Mapio v0.1.3
         </div>
     </div>
 </template>
