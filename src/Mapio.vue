@@ -25,7 +25,7 @@
             </div>
         </div>
         <div id="version">
-            <span @click="download" class="material-icons md-36">download_for_offline</span>
+            <!--<span @click="download" class="material-icons md-36">download_for_offline</span>-->
             <span @click="toggleInfo" class="material-icons md-36">info</span>
             <div id="version-expanded" v-if="showInfo">
                 Datu avots - <a href="https://www.csb.gov.lv/">Centrālā statistikas pārvalde</a>
