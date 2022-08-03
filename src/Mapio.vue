@@ -29,7 +29,7 @@
             <span @click="toggleInfo" class="material-icons md-36">info</span>
             <div id="version-expanded" v-if="showInfo">
                 Datu avots - <a href="https://www.csb.gov.lv/">Centrālā statistikas pārvalde</a>
-                Mapio v0.1.4
+                Mapio v0.2.0
             </div>
         </div>
     </div>
