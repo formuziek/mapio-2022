@@ -6,35 +6,32 @@
                 :options="versions"
                 :allow-empty="false"
                 :show-labels="false"
-                :placeholder="$t('lblSelectMode')"
-                :label="getLabelSource()" />
+                :placeholder="$t('lblSelectVersion')"
+                label="Text">
+                <template><span slot="noResult">{{ $t('lblNoVersion') }}</span></template>
+            </multiselect>
         </div>
         <div class="select-menu">
             <multiselect 
-                v-model="filter.dataType" 
+                v-model="dataType" 
                 :options="dataTypes"
                 :allow-empty="false"
                 :show-labels="false"
                 :placeholder="$t('lblSelectDataType')"
-                :label="getLabelSource()" />
+                label="Text">
+                <template><span slot="noResult">{{ $t('lblNoDataType') }}</span></template>
+            </multiselect>
         </div>
-        <div class="select-menu">
+        <div v-for="variable in publicVariables" class="select-menu">
             <multiselect
-                v-model="filter.year"
+                v-model="variable.value"
+                :options="variable.ValueItems"
                 :allow-empty="false"
                 :show-labels="false"
-                :placeholder="$t('lblSelectYear')"
-                :options="years" />
-        </div>
-        <div 
-            v-show="filter.dataType && filter.dataType.IsQuarterly"
-            class="select-menu">
-            <multiselect
-                v-model="filter.quarter"
-                :allow-empty="false"
-                :show-labels="false"
-                :placeholder="$t('lblSelectQuarter')"
-                :options="quarters" />
+                :placeholder="variable.Text"
+                label="Text"
+                track-by="Value">
+            </multiselect>
         </div>
     </div>
 </template>
@@ -59,25 +56,26 @@ export default {
     data() {
         return {
             allDataTypes: [],
-            versions: [ { code: Version.AFTER_2021_ATR, TextLat: "Pēc 2021.07 reformas" }, { code: Version.BEFORE_2021_ATR, TextLat: "Līdz 2021.07 reformai" } ],
+            versions: [ { code: Version.AFTER_2021_ATR, Text: "Pēc 2021.07 reformas" }, { code: Version.BEFORE_2021_ATR, Text: "Līdz 2021.07 reformai" } ],
             dataTypes: [],
-            years: [],
-            quarters: [],
-            filter: {
-                dataType: null,
-                year: null,
-                quarter: null,
-            },
             version: {},
+            dataType: null,
+            publicVariables: [],
         }
     },
 
     watch: {
-        filter: {
+        dataType: {
             deep: true,
             handler() {
-                this.datasetChanged(this.filter.dataType);
-                this.loadData();
+                if (!this.dataType) {
+                    return;
+                }
+
+                this.publicVariables = this.dataType.Variables.filter(x => x.Code !== "AREA" && x.Code !== "ContentsCode");
+                if (this.dataType.Variables.every(x => x.Code === "AREA" || x.Code === "ContentsCode" || x.value)) {
+                    this.loadData();
+                }
             }
         },
         version: {
@@ -90,7 +88,8 @@ export default {
                 }
 
                 this.dataTypes = this.allDataTypes.filter(t => t.Version === this.version.code);
-                this.filter.dataType = null;
+                this.dataType = null;
+                this.publicVariables = [];
 
                 this.$emit("loadBasemap", basemapVersion);
             }
@@ -102,48 +101,15 @@ export default {
             'setData',
             'setError',
             'setLoading',
+            'setDataTitle'
         ]),
         ...mapGetters([
             'getBaseUri'
         ]),
 
-        datasetChanged(dataset)
-        {
-            if (!dataset) {
-                this.filter.year = null;
-                this.filter.quarter = null;
-                return;
-            }
-
-            this.years = dataset.Years ? dataset.Years : [];
-            this.quarters = dataset.Quarters ? dataset.Quarters : [];
-            if (!this.years.includes(this.filter.year))
-            {
-                this.filter.year = null;
-                this.setData(null);
-            }
-
-            if (dataset.IsQuarterly) {
-                if (this.years.indexOf(this.filter.year) === 0) {
-                    this.quarters = dataset.FirstYearQuarters;
-                } else if (this.years.indexOf(this.filter.year) === this.years.length - 1) {
-                    this.quarters = dataset.LastYearQuarters;
-                }
-            }
-
-            if (!this.quarters.includes(this.filter.quarter)) {
-                this.filter.quarter = null;
-                this.setData(null);
-            }
-        },
-
         loadData: function () {
-            if (!this.isDataSetSelected()) {
-                return;
-            }
-
-            const dataQuery = DataLogic.buildQuery(this.version.code, this.filter.dataType, this.filter.year, this.filter.quarter);
-            const uri = `https://data.stat.gov.lv:443/api/v1/lv/OSP_PUB/${this.filter.dataType.Uri}`;
+            const dataQuery = DataLogic.buildQuery(this.version.code, this.dataType);
+            const uri = `https://data.stat.gov.lv:443/api/v1/lv/OSP_PUB${this.dataType.Uri}`;
             let resultList = [];
             axios
                 .post(uri, dataQuery)
@@ -161,18 +127,6 @@ export default {
                     this.setError(error);
                 });
         },
-
-        isDataSetSelected: function() {
-            return this.filter.dataType && this.filter.year && (this.filter.quarter || !this.filter.dataType.IsQuarterly);
-        },
-
-        getLabelSource: function() {
-            if (this.language === 'lv') {
-                return 'TextLat';
-            }
-
-            return 'TextEng';
-        }
     },
 
     mounted() {
@@ -180,7 +134,7 @@ export default {
         axios
             .get(uri)
             .then(response => {
-                this.allDataTypes = response.data.DataSetConfigurations;
+                this.allDataTypes = response.data;
                 this.version = this.versions[0];
             })
             .catch(error => {

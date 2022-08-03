@@ -19,22 +19,24 @@
                 </div>
             </div> -->
             <Filters @loadBasemap="loadBasemap"/>
-            <Stage />
+            <Stage ref="stageRef" />
             <div id="map">
-                <span v-html="svg"></span>
+                <span id="map-data" v-html="svg"></span>
             </div>
         </div>
         <div id="version">
-            <span @click="toggleInfo" class="material-icons">info</span>
+            <span @click="download" class="material-icons md-36">download_for_offline</span>
+            <span @click="toggleInfo" class="material-icons md-36">info</span>
             <div id="version-expanded" v-if="showInfo">
                 Datu avots - <a href="https://www.csb.gov.lv/">Centrālā statistikas pārvalde</a>
-                Mapio v0.1.3
+                Mapio v0.1.4
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import { SVG } from '@svgdotjs/svg.js';
 import axios from 'axios';
 import Filters from './components/Filters.vue';
 import Stage from './components/Stage.vue';
@@ -72,6 +74,25 @@ export default {
 
         toggleInfo() {
             this.showInfo = !this.showInfo;
+        },
+
+        download() {
+            const svgRoot = document.getElementById("map-data").firstElementChild;
+            const height = svgRoot.getAttribute("height");
+            const width = svgRoot.getAttribute("width");
+            svgRoot.setAttribute("height", "1000pt");
+            svgRoot.setAttribute("width", "1700pt");
+            const svgBlob = new Blob([svgRoot.outerHTML], { type: "application/octet-stream" });
+            const url = URL.createObjectURL(svgBlob);
+            const a = document.createElement("a");
+            a.style.display = "none";
+            a.href = url;
+            a.download = "mapio.svg";
+            document.body.appendChild(a);
+            a.click();
+            URL.revokeObjectURL(url);
+            svgRoot.setAttribute("height", height);
+            svgRoot.setAttribute("width", width);
         },
 
         loadBasemap(version) {

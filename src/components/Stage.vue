@@ -9,7 +9,9 @@
                     :show-labels="false"
                     :placeholder="$t('lblSelectColorSchema')"
                     :label="getLabelSource()"
-                    @input="changeColorSet()"/>
+                    @input="changeColorSet()">
+                    <template><span slot="noResult">{{ $t('lblNoColorSchema') }}</span></template>
+                </multiselect>
             </div>
         </div>
         <div id="color-options">
@@ -20,6 +22,7 @@
                 <div
                     @click="toggleColor(color.value, !color.isActive)"
                     class="color-tile"
+                    :class="{ active: color.isActive }"
                     :style="bindStyle('background-color', color.value)"></div>
                 <p class="color-range">{{ getDataRangeText(color) }}</p>
             </div>
@@ -81,9 +84,12 @@ export default {
             }
 
             // Basic way to dynamically drop data entries into different color colorSets.
+            // Getting the total number of active colors.
             const activeColors = this.currentColorSet.colors.filter(color => color.isActive);
             const groupCount = activeColors.length;
             const dataLength = this.data.length;
+
+            // Dividing data into roughly similar sized sets.
             const colorSetsize = Math.floor(dataLength / groupCount);
             const groupMask = new Array(groupCount).fill(colorSetsize);
 
@@ -114,6 +120,8 @@ export default {
                 groupMask[currentGroupIndex]--;
                 this.setCountyColor(entry.name, activeColors[currentGroupIndex].value);
             });
+
+            this.setTitle(this.dataTitle);
         },
 
         /**
@@ -121,6 +129,10 @@ export default {
          */ 
         setCountyColor: function (county, value) {
             SVG.find(`.${county}`).fill(value);
+        },
+
+        setTitle: function (value) {
+            // SVG.find("#title")[0].node.textContent = value;
         },
 
         /**
@@ -190,6 +202,7 @@ export default {
     computed: 
         mapState([
             'data',
+            'dataTitle',
             'language'
         ])
 };

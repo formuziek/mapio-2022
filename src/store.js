@@ -10,6 +10,7 @@ export const store = new Vuex.Store({
         error: null,
         language: 'lv',
         loading: true,
+        dataTitle: null,
     },
     getters: {
         getBaseUri: () => {
@@ -34,7 +35,10 @@ export const store = new Vuex.Store({
         },
         setLoading: (state, loading) => {
             state.loading = loading;
-        }
+        },
+        setDataTitle: (state, title) => {
+            state.dataTitle = title;
+        },
     },
     actions: {
 

@@ -5,7 +5,7 @@ let DataLogic = {
     /*
     * Builds a query based on dataset.
     */
-    buildQuery(version, dataset, year, quarter) {
+    buildQuery(version, dataset) {
         const queryRoot = {
             Query: [],
             Response: {
@@ -13,34 +13,33 @@ let DataLogic = {
             },
         };
 
-        for (let i = 0; i < dataset.QuerySections.length; i++) {
-            const section = dataset.QuerySections[i];
-            const sectionValues = [];
-            let sectionCode = "";
-            switch (section) {
+        for (let i = 0; i < dataset.Variables.length; i++) {
+            const variable = dataset.Variables[i];
+            const value = [];
+            switch (variable.Code) {
                 case "AREA":
                     if (version === Version.AFTER_2021_ATR) {
                         for (var key in AdministrativeCodes2021) {
-                            sectionValues.push(key);
+                            value.push(key);
                         }
                     } else if (version === Version.BEFORE_2021_ATR) {
                         for (var key in AdministrativeCodes) {
-                            sectionValues.push(key);
+                            value.push(key);
                         }
                     }
                     break;
-                case "TIME":
-                    sectionValues.push(year);
+                case "ContentsCode":
+                    value.push(variable.ValueItems[0].Value);
                     break;
                 default:
-                    sectionValues.push(...dataset.QueryValues[i])
+                    value.push(variable.value.Value);
                     break;
             }
             const queryItem = {
-                Code: section,
+                Code: variable.Code,
                 Selection: {
                     Filter: 'item',
-                    Values: sectionValues,
+                    Values: value,
                 },
             };
             queryRoot.Query.push(queryItem);

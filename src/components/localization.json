@@ -1,16 +1,18 @@
 {
     "en": {
-        "lblSelectMode": "Select mode..",
+        "lblSelectVersion": "Select version..",
         "lblSelectDataType": "Select data..",
-        "lblSelectYear": "Select year..",
-        "lblSelectQuarter": "Select quarter..",
-        "lblSelectColorSchema": "Select color schema.."
+        "lblSelectColorSchema": "Select color schema..",
+        "lblNoVersion": "Such version is not available!",
+        "lblNoDataType": "Such data is not available!",
+        "lblNoColorSchema": "Such color schema is not available!"
     },
     "lv": {
-        "lblSelectMode": "Izvēlies režīmu..",
+        "lblSelectVersion": "Izvēlies versiju..",
         "lblSelectDataType": "Izvēlies datus..",
-        "lblSelectYear": "Izvēlies gadu..",
-        "lblSelectQuarter": "Izvēlies ceturksni..",
-        "lblSelectColorSchema": "Izvēlies krāsu shēmu.."
+        "lblSelectColorSchema": "Izvēlies krāsu shēmu..",
+        "lblNoVersion": "Šāda versija nav atrodama!",
+        "lblNoDataType": "Šādi dati nav atrodami!",
+        "lblNoColorSchema": "Šāda krāsu shēma nav pieejama!"
     }
 }
