@@ -11,6 +11,9 @@ export const store = new Vuex.Store({
         language: 'lv',
         loading: true,
         dataTitle: null,
+        colorSets: [],
+        previousColorSet: null,
+        colorSet: null,
     },
     getters: {
         getBaseUri: () => {
@@ -38,6 +41,13 @@ export const store = new Vuex.Store({
         },
         setDataTitle: (state, title) => {
             state.dataTitle = title;
+        },
+        setColorSets: (state, colorSets) => {
+            state.colorSets = colorSets;
+        },
+        setColorSet: (state, colorSet) => {
+            state.previousColorSet = state.colorSet;
+            state.colorSet = colorSet;
         },
     },
     actions: {

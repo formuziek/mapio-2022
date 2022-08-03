@@ -1,37 +1,53 @@
 <template>
     <div id="data-select">
-        <div class="select-menu">
-            <multiselect
-                v-model="version"
-                :options="versions"
-                :allow-empty="false"
-                :show-labels="false"
-                :placeholder="$t('lblSelectVersion')"
-                label="Text">
-                <template><span slot="noResult">{{ $t('lblNoVersion') }}</span></template>
-            </multiselect>
+        <div class="filters" :class="{expanded: expanded}">
+            <div class="select-menu">
+                <multiselect
+                    v-model="version"
+                    :options="versions"
+                    :allow-empty="false"
+                    :show-labels="false"
+                    :placeholder="$t('lblSelectVersion')"
+                    label="Text">
+                    <template><span slot="noResult">{{ $t('lblNoVersion') }}</span></template>
+                </multiselect>
+            </div>
+            <div class="select-menu">
+                <multiselect 
+                    v-model="dataType" 
+                    :options="dataTypes"
+                    :allow-empty="false"
+                    :show-labels="false"
+                    :placeholder="$t('lblSelectDataType')"
+                    label="Text">
+                    <template><span slot="noResult">{{ $t('lblNoDataType') }}</span></template>
+                </multiselect>
+            </div>
+            <div v-for="variable in publicVariables" class="select-menu">
+                <multiselect
+                    v-model="variable.value"
+                    :options="variable.ValueItems"
+                    :allow-empty="false"
+                    :show-labels="false"
+                    :placeholder="variable.Text"
+                    label="Text"
+                    track-by="Value">
+                </multiselect>
+            </div>
+            <div class="select-menu">
+                <multiselect
+                    v-model="colorSetLocal"
+                    :options="colorSetsLocal"
+                    :allow-empty="false"
+                    :show-labels="false"
+                    :placeholder="$t('lblSelectColorSchema')"
+                    label="textLat">
+                    <template><span slot="noResult">{{ $t('lblNoColorSchema') }}</span></template>
+                </multiselect>
+            </div>
         </div>
-        <div class="select-menu">
-            <multiselect 
-                v-model="dataType" 
-                :options="dataTypes"
-                :allow-empty="false"
-                :show-labels="false"
-                :placeholder="$t('lblSelectDataType')"
-                label="Text">
-                <template><span slot="noResult">{{ $t('lblNoDataType') }}</span></template>
-            </multiselect>
-        </div>
-        <div v-for="variable in publicVariables" class="select-menu">
-            <multiselect
-                v-model="variable.value"
-                :options="variable.ValueItems"
-                :allow-empty="false"
-                :show-labels="false"
-                :placeholder="variable.Text"
-                label="Text"
-                track-by="Value">
-            </multiselect>
+        <div class="collapse-filters">
+            <span @click="toggleFilters()" class="material-icons md-48">{{ getArrow() }}</span>
         </div>
     </div>
 </template>
@@ -55,6 +71,7 @@ export default {
 
     data() {
         return {
+            expanded: false,
             allDataTypes: [],
             versions: [ { code: Version.AFTER_2021_ATR, Text: "Pēc 2021.07 reformas" }, { code: Version.BEFORE_2021_ATR, Text: "Līdz 2021.07 reformai" } ],
             dataTypes: [],
@@ -101,7 +118,8 @@ export default {
             'setData',
             'setError',
             'setLoading',
-            'setDataTitle'
+            'setDataTitle',
+            'setColorSet',
         ]),
         ...mapGetters([
             'getBaseUri'
@@ -127,6 +145,14 @@ export default {
                     this.setError(error);
                 });
         },
+
+        getArrow() {
+            return this.expanded ? "keyboard_double_arrow_left" : "keyboard_double_arrow_right";
+        },
+
+        toggleFilters() {
+            this.expanded = !this.expanded;
+        }
     },
 
     mounted() {
@@ -142,9 +168,25 @@ export default {
             });
     },
 
-    computed: 
-        mapState([
-            'language'
-        ])
+    computed: {
+        ...mapState([
+            'language',
+            'colorSets',
+            'colorSet',
+        ]),
+        colorSetsLocal: {
+            get() {
+                return this.colorSets;
+            },
+        },
+        colorSetLocal: {
+            get() {
+                return this.colorSet;
+            },
+            set(value) {
+                this.setColorSet(value);
+            },
+        },
+    },
 };
 </script>

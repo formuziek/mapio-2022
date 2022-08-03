@@ -1,22 +1,8 @@
 <template>
     <div>
-        <div id="map-options">
-            <div class="color-select">
-                <multiselect
-                    v-model="currentColorSetSelector"
-                    :options="colorSets"
-                    :allow-empty="false"
-                    :show-labels="false"
-                    :placeholder="$t('lblSelectColorSchema')"
-                    :label="getLabelSource()"
-                    @input="changeColorSet()">
-                    <template><span slot="noResult">{{ $t('lblNoColorSchema') }}</span></template>
-                </multiselect>
-            </div>
-        </div>
         <div id="color-options">
             <div
-                v-for="color in currentColorSet.colors"
+                v-for="color in colorSet.colors"
                 class="color-entry"
                 :key="color.value">
                 <div
@@ -35,7 +21,8 @@ import * as SVG from '@svgdotjs/svg.js';
 import multiselect from 'vue-multiselect';
 import colorSets from '../static/colorSets.json';
 import {
-    mapState
+    mapState,
+    mapMutations
 } from 'vuex';
 
 export default {
@@ -44,24 +31,21 @@ export default {
 
     components: { multiselect },
 
-    data() {
-        return {
-            colorSets: [],
-            currentColorSet: null,
-            currentColorSetSelector: null,
-        }
-    },
-
     watch: {
-        /**
-         * Updates map state upon data set changes.
-         */
-        data: function () {
+        colorSet: function () {
+            this.changeColorSet();
+        },
+        data: function() {
             this.setMapState();
         },
     },
 
     methods: {
+        ...mapMutations([
+            'setColorSets',
+            'setColorSet',
+        ]),
+        
         /**
          * Bindable css function.
          */
@@ -74,7 +58,7 @@ export default {
          */
         setMapState: function () {
             // Reset range indicator values.
-            this.currentColorSet.colors.forEach(color => {
+            this.colorSet.colors.forEach(color => {
                 color.min = null;
                 color.max = null;
             });
@@ -85,7 +69,7 @@ export default {
 
             // Basic way to dynamically drop data entries into different color colorSets.
             // Getting the total number of active colors.
-            const activeColors = this.currentColorSet.colors.filter(color => color.isActive);
+            const activeColors = this.colorSet.colors.filter(color => color.isActive);
             const groupCount = activeColors.length;
             const dataLength = this.data.length;
 
@@ -107,13 +91,13 @@ export default {
             this.data.forEach(entry => {
                 // If this is the last entry in the group, set the min value for the group.
                 if (groupMask[currentGroupIndex] === 1) {
-                    this.currentColorSet.colors.find(color => color.value === activeColors[currentGroupIndex].value).min = entry.value;
+                    this.colorSet.colors.find(color => color.value === activeColors[currentGroupIndex].value).min = entry.value;
                 }
 
                 // If the current mask index is empty, proceed to next one and set the max value for the new range.
                 if (groupMask[currentGroupIndex] === 0) {
                     currentGroupIndex++;
-                    this.currentColorSet.colors.find(color => color.value === activeColors[currentGroupIndex].value).max = entry.value;
+                    this.colorSet.colors.find(color => color.value === activeColors[currentGroupIndex].value).max = entry.value;
                 }
 
                 // Reduce mask size and set the color on map.
@@ -139,7 +123,7 @@ export default {
          * Toggles a color in the current set and updates the map.
          */
         toggleColor: function (color, isActive) {
-            this.currentColorSet.colors.find(item => item.value === color).isActive = isActive;
+            this.colorSet.colors.find(item => item.value === color).isActive = isActive;
             this.setMapState();
         },
 
@@ -167,43 +151,37 @@ export default {
          * Changes the currently used color set and updates the map.
          */
         changeColorSet: function() {
+            if (!this.previousColorSet) {
+                return;
+            }
+
             // Copy the previous group colors, set current group to the new one and update values in new one to match old group.
-            const oldGroupColors = [...this.currentColorSet.colors];
-            this.currentColorSet = this.colorSets.find(item => item.name === this.currentColorSetSelector.name);
-            this.currentColorSet.colors.forEach((color, index) => {
+            const oldGroupColors = [...this.previousColorSet.colors];
+            this.colorSet.colors.forEach((color, index) => {
                 const prevColor = oldGroupColors[index];
                 color.min = prevColor.min;
                 color.max = prevColor.max;
                 color.isActive = prevColor.isActive;
             });
             this.setMapState();
-        },
-
-        getLabelSource: function() {
-            if (this.language === 'lv') {
-                return 'textLat';
-            }
-
-            return 'textEng';
         }
     },
 
     created() {
-        // Load color sets.
-        this.colorSets = colorSets;
+        this.setColorSets(colorSets);
         
         // Set initial color set.
-        this.currentColorSet = this.colorSets.find(x => x.selected);
-
-        // Set the color set selector for multiselect.
-        this.currentColorSetSelector = this.currentColorSet;
+        this.setColorSet(this.colorSets.find(x => x.selected));
     },
 
     computed: 
         mapState([
             'data',
             'dataTitle',
-            'language'
-        ])
+            'language',
+            'colorSets',
+            'previousColorSet',
+            'colorSet',
+        ]),
 };
 </script>
