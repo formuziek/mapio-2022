@@ -1,0 +1,25 @@
+{
+    "short_name": "Mapio",
+    "name": "Mapio",
+    "icons": [
+      {
+        "src": "/wwwroot/Icon.png",
+        "type": "image/png",
+        "sizes": "512x512",
+        "purpose": "any"
+      },
+      {
+        "src": "/wwwroot/Icon.png",
+        "type": "image/png",
+        "sizes": "512x512",
+        "purpose": "any"
+      }
+    ],
+    "id": "/",
+    "start_url": "/",
+    "background_color": "#3367D6",
+    "display": "standalone",
+    "scope": "/",
+    "theme_color": "#3367D6"
+  }
+  
